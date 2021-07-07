@@ -2,9 +2,11 @@
   "name": "html-signature-generator",
   "version": "0.0.2",
   "description": "Build an email signature from a predefined template",
-  "main": "index.js",
   "license": "MIT",
+  "repository": "renansigolo/html-signature-generator",
+  "main": "index.js",
   "author": "Renan Sigolo <renan.sigolo@gmail.com>",
+  "keywords": ["html, signature, email, cli"],
   "bugs": {
     "url": "https://github.com/renansigolo/html-signature-generator/issues",
     "email": "renan.sigolo@gmail.com"
@@ -16,5 +18,8 @@
   "dependencies": {
     "html-minifier": "^4.0.0",
     "inquirer": "^8.1.1"
+  },
+  "engines": {
+    "node": ">=12.17"
   }
 }
