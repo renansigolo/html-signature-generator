@@ -1,4 +1,4 @@
-# Signature Generator
+# HTML Signature Generator
 
 A simple signature generator written in node.js
 
