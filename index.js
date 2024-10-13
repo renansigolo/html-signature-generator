@@ -1,24 +1,19 @@
-const inquirer = require("inquirer");
-const minify = require("html-minifier").minify;
-const { readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs");
-const version = require("./package.json").version;
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { minify } from "html-minifier";
+import inquirer from "inquirer";
+import versionData from "./package.json" assert { type: "json" };
+const { version } = versionData;
 
 /**
- * Capitalize each word and trim the spaces
+ * Convert a string to Snake Case
  * @param {string} sentence the phrase to be formatted
- * @returns
+ * @returns {string} the formatted string in snake case
  */
-const toCapitalize = (sentence) => {
-  const words = sentence.split(" ");
-  const userName = words
-    .map((word) => {
-      return word[0].toUpperCase() + word.substring(1);
-    })
-    .join("");
-  return userName;
+const toSnakeCase = (sentence) => {
+  return sentence.toLowerCase().replace(/\s+/g, "_");
 };
 
-const company = "Pera Pay";
+const company = "Company Name";
 const distDir = "dist";
 const questions = [
   {
@@ -73,13 +68,13 @@ inquirer.prompt(questions).then((answers) => {
     const result = minify(data, minifyOptions);
 
     // Shape the file naming output
-    const companyCaps = toCapitalize(company);
-    const nameCaps = toCapitalize(answers["name"]);
+    const nameSnakeCase = toSnakeCase(answers["name"]);
+    const companySnakeCase = toSnakeCase(company);
     const fileVersion = version.replaceAll(".", "");
 
     // Write the minified file output to the dist folder
     writeFileSync(
-      `dist/${nameCaps}_${companyCaps}_Signature_v${fileVersion}.html`,
+      `dist/${nameSnakeCase}-${companySnakeCase}-signature-v${fileVersion}.html`,
       result
     );
   } catch (err) {

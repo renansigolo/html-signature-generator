@@ -1,7 +1,8 @@
 {
   "name": "html-signature-generator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Build an email signature from a predefined template",
+  "type": "module",
   "license": "MIT",
   "repository": "renansigolo/html-signature-generator",
   "main": "index.js",
@@ -14,14 +15,15 @@
     "email": "renan.sigolo@gmail.com"
   },
   "scripts": {
-    "build": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf dist node_modules package-lock.json",
+    "build": "node index.js"
   },
   "dependencies": {
-    "html-minifier": "^4.0.0",
-    "inquirer": "^8.1.1"
+    "html-minifier": "4.0.0",
+    "inquirer": "12.0.0"
   },
   "engines": {
-    "node": ">=12.17"
+    "node": "^20.11.1",
+    "npm": ">=10.2.4"
   }
 }
