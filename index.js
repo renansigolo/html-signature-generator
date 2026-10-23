@@ -4,6 +4,9 @@ import { minify } from "html-minifier-next";
 import versionData from "./package.json" with { type: "json" };
 const { version } = versionData;
 
+const company = "Company Name";
+const distDir = "dist";
+
 /**
  * Convert a string to Snake Case
  * @param {string} sentence the phrase to be formatted
@@ -13,21 +16,26 @@ const toSnakeCase = (sentence) => {
   return sentence.toLowerCase().replace(/\s+/g, "_");
 };
 
-const company = "Company Name";
-const distDir = "dist";
-
 /**
  * Ask the user for the signature details
  * @returns {Promise<Record<string, string>>} the answers keyed by template placeholder
  */
-const askQuestions = async () => ({
-  name: await input({ message: "What's your name?" }),
-  role: await input({ message: "What's your role?" }),
-  email: await input({ message: "What's your email?" }),
-  phoneNumber: await input({
+const askQuestions = async () => {
+  const name = await input({ message: "What's your name?" });
+  const role = await input({ message: "What's your role?" });
+  const email = await input({
+    message: "What's your email?",
+    validate: (value) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value) || "Please enter a valid email",
+  });
+  const phoneNumber = await input({
     message: "What's your phone number (+61 434 123 123)?",
-  }),
-});
+  });
+
+  // The company website shares the domain of the email address
+  const domain = email.split("@")[1];
+
+  return { name, role, email, phoneNumber, domain, company };
+};
 
 let answers;
 try {
@@ -49,7 +57,10 @@ try {
   // Load the input file
   let data = readFileSync("template.html", "utf8");
   // Replace the template values with the answers provided
-  data = data.replace(/\b(?:name|role|email|phoneNumber)\b/gi, (matched) => answers[matched]);
+  data = data.replace(
+    /\b(?:name|role|email|phoneNumber|domain|company)\b/gi,
+    (matched) => answers[matched],
+  );
 
   // Minify the file content
   const minifyOptions = {

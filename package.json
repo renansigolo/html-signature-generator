@@ -1,6 +1,6 @@
 {
   "name": "html-signature-generator",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Build an email signature from a predefined template",
   "keywords": [
     "html, signature, email, cli"
