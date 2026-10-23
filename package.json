@@ -19,8 +19,8 @@
     "build": "node index.js"
   },
   "dependencies": {
-    "html-minifier": "4.0.0",
-    "inquirer": "14.2.4"
+    "@inquirer/prompts": "8.7.4",
+    "html-minifier": "4.0.0"
   },
   "engines": {
     "node": "^24.14.1",
