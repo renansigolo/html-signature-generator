@@ -1,6 +1,6 @@
 import { input } from "@inquirer/prompts";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import { minify } from "html-minifier";
+import { minify } from "html-minifier-next";
 import versionData from "./package.json" with { type: "json" };
 const { version } = versionData;
 
@@ -61,9 +61,9 @@ try {
     removeEmptyAttributes: true,
     removeRedundantAttributes: true,
     sortAttributes: true,
-    sortClassName: true,
+    sortClassNames: true,
   };
-  const result = minify(data, minifyOptions);
+  const result = await minify(data, minifyOptions);
 
   // Shape the file naming output
   const nameSnakeCase = toSnakeCase(answers["name"]);
